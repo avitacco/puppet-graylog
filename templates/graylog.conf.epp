@@ -1,0 +1,11 @@
+<% |
+  Hash $config,
+| %>
+# Graylog Server Config File
+###############################################################################
+# This file is managed by puppet and any changes will be automatically
+# overwritten the next time puppet is run 
+###############################################################################
+<% $config.keys.sort.each |$key| { -%>
+<%= "${key} = ${config[$key]}" %>
+<% } -%>

@@ -47,7 +47,14 @@ class graylog::server (
     owner   => $user,
     group   => $group,
     mode    => '0640',
-    content => Sensitive(template("${module_name}/server/graylog.conf.erb")),
+    content => Sensitive(
+      epp(
+        "${module_name}/graylog.conf.epp",
+        {
+          'config' => $config,
+        }
+      )
+    ),
   }
 
   case $facts['os']['family'] {
