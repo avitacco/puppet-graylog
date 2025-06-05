@@ -85,7 +85,9 @@ class graylog::server (
   package { $package_name:
     ensure  => $package_version,
     notify  => $notify,
-    require => Class['graylog::repository'],
+    require => [
+      Class['graylog::repository'],
+    ],
   }
 
   file { '/etc/graylog/server/server.conf':
@@ -109,7 +111,8 @@ class graylog::server (
             'java_initial_heap_size' => $java_initial_heap_size,
             'java_max_heap_size'     => $java_max_heap_size,
             'java_opts'              => $java_opts
-        }),
+          }
+        ),
         require => Package[$package_name],
       }
     }
